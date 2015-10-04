@@ -1,0 +1,7 @@
+<?php if(! $noJs): ?> <noscript> <?php endif; ?>
+    <div class="container">
+        <div class="Alert">You're viewing the HTML-only version of <?php echo e($forum->attributes->title); ?>. Upgrade your browser for the full version.</div>
+    </div>
+    <?php echo $content; ?>
+
+<?php if(! $noJs): ?> </noscript> <?php endif; ?>

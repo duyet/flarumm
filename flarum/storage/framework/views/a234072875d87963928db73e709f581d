@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><?php echo e($title); ?></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="theme-color" content="<?php echo e($forum->attributes->themePrimaryColor); ?>">
+
+    <?php foreach($styles as $file): ?>
+      <link rel="stylesheet" href="<?php echo e($forum->attributes->baseUrl . str_replace(public_path(), '', $file)); ?>">
+    <?php endforeach; ?>
+
+    <?php echo $head; ?>
+
+  </head>
+
+  <body>
+    <?php echo $layout; ?>
+
+
+    <div id="modal"></div>
+    <div id="alerts"></div>
+
+    <?php if(! $noJs): ?>
+        <?php foreach($scripts as $file): ?>
+          <script src="<?php echo e($forum->attributes->baseUrl . str_replace(public_path(), '', $file)); ?>"></script>
+        <?php endforeach; ?>
+
+        <script>
+          try {
+            var app = System.get('flarum/app').default;
+
+            babelHelpers._extends(app, <?php echo json_encode($app); ?>);
+
+            <?php foreach($bootstrappers as $bootstrapper): ?>
+              System.get('<?php echo e($bootstrapper); ?>');
+            <?php endforeach; ?>
+
+            app.boot();
+          } catch (e) {
+            <?php if(! $forum->attributes->debug): ?>
+                window.location = window.location + '?nojs=1';
+            <?php endif; ?>
+            throw e;
+          }
+        </script>
+    <?php endif; ?>
+
+    <?php echo $foot; ?>
+
+  </body>
+</html>

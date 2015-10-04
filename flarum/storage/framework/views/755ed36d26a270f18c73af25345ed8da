@@ -1,0 +1,21 @@
+<?php
+$url = app('Flarum\Http\UrlGeneratorInterface');
+?>
+<div class="container">
+    <h2>All Discussions</h2>
+
+    <ul>
+        <?php foreach($document->data as $discussion): ?>
+            <li>
+                <a href="<?php echo e($url->toRoute('flarum.forum.discussion', [
+                    'id' => $discussion->id . '-' . $discussion->attributes->title
+                ])); ?>">
+                    <?php echo e($discussion->attributes->title); ?>
+
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <a href="<?php echo e($url->toRoute('flarum.forum.index')); ?>?page=<?php echo e($page + 1); ?>">Next Page &raquo;</a>
+</div>
