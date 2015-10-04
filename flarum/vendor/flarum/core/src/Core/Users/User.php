@@ -246,8 +246,8 @@ class User extends Model
      */
     protected function assertValidPassword($password)
     {
-        if (strlen($password) < 8) {
-            throw new ValidationException(['password' => 'Password must be at least 8 characters']);
+        if (strlen($password) < 6) {
+            throw new ValidationException(['password' => 'Password must be at least 6 characters']);
         }
     }
 
